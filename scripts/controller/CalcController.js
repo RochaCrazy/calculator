@@ -2,22 +2,52 @@ class CalcController {
 
     constructor(){
 
+        this._locale = 'pt-BR'
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#data");
         this._timeEl = document.querySelector("#hora");
         // this._currentDate;
+        this.initButtonsEvents();
         this.initialize();
 
     }
 
     initialize(){
+
+        this.setDisplayDateTime();
         
         setInterval(() => {
 
-            this.displayDate = this.currentDate.toLocaleDateString('pt-BR');
-            this.displayTime = new Date().toLocaleTimeString('pt-BR');
+            this.setDisplayDateTime();
             
         }, 1000);
+
+   }
+
+   initButtonsEvents(){
+
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+        
+        buttons.forEach((btn, index)=>{
+
+            btn.addEventListener('click', e => {
+
+                console.log(btn);
+
+            })
+
+        })
+
+   }
+
+    setDisplayDateTime(){
+
+        this.displayDate = this.currentDate.toLocaleDateString(this._locale, {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+        this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
 
    }
 
